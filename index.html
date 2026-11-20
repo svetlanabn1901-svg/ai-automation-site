@@ -98,14 +98,17 @@
     padding: 14px 28px;
     min-height: 52px;
     line-height: 1.4;
-    transition: background 0.2s ease, transform 0.15s ease;
+    transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.25s ease;
   }
 
   .btn-amber {
     background: var(--amber);
     color: var(--white);
   }
-  .btn-amber:hover { background: var(--amber-dark); }
+  .btn-amber:hover {
+    background: var(--amber-dark);
+    box-shadow: 0 6px 24px rgba(217, 119, 6, 0.45), 0 0 14px rgba(217, 119, 6, 0.35);
+  }
   .btn-amber:active { transform: scale(0.98); }
 
   .btn-header { padding: 10px 20px; min-height: 44px; font-size: 14px; white-space: nowrap; }
@@ -361,7 +364,36 @@
     color: var(--graphite);
     border: 1.5px solid var(--line);
   }
-  .btn-outline:hover { border-color: var(--amber); color: var(--amber); }
+  .btn-outline:hover {
+    border-color: var(--amber);
+    color: var(--amber);
+    box-shadow: 0 4px 18px rgba(217, 119, 6, 0.28), 0 0 10px rgba(217, 119, 6, 0.16);
+  }
+
+  /* ---------- Свечение и бегущий блик кнопок ---------- */
+  .btn {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn::after {
+    content: "";
+    position: absolute;
+    top: -20%;
+    left: -80%;
+    width: 50%;
+    height: 140%;
+    background: linear-gradient(105deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+    transform: skewX(-20deg);
+    transition: left 0.6s ease;
+    pointer-events: none;
+  }
+
+  .btn:hover::after { left: 130%; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .btn::after { display: none; }
+  }
 
   /* ---------- Форма ---------- */
   .cta-section { background: var(--graphite); color: var(--white); }
