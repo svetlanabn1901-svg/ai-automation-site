@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 64" width="360" height="64">
+  <!-- Знак: узел автоматизации - три связанные точки с янтарным импульсом -->
+  <g transform="translate(6,8)">
+    <rect x="0" y="0" width="48" height="48" rx="12" fill="#0F172A"/>
+    <path d="M14 32 L24 16 L34 32" fill="none" stroke="#FAFAF9" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="14" cy="32" r="3.5" fill="#FAFAF9"/>
+    <circle cx="34" cy="32" r="3.5" fill="#FAFAF9"/>
+    <circle cx="24" cy="16" r="4.5" fill="#D97706"/>
+  </g>
+  <!-- Название -->
+  <text x="66" y="30" font-family="Manrope, system-ui, sans-serif" font-weight="800" font-size="20" fill="#0F172A" letter-spacing="-0.4">AI-автоматизация</text>
+  <text x="66" y="48" font-family="Inter, system-ui, sans-serif" font-weight="500" font-size="11" fill="#0F172A" opacity="0.6">умные процессы для бизнеса</text>
+</svg>
