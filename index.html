@@ -208,14 +208,14 @@
   }
 
   /* Пульсирующие точки статуса на нодах */
-  /* Волна сверху вниз: общий цикл 2,4 с, мягкий ease-in-out */
+  /* Волна сверху вниз: общий цикл 3 с, мягкий ease-in-out */
   .pulse-dot {
     transform-box: fill-box;
     transform-origin: center;
-    animation: node-pulse 2.4s ease-in-out infinite;
+    animation: node-pulse 3s ease-in-out infinite;
   }
-  .pulse-dot.d2 { animation-delay: 0.96s; }
-  .pulse-dot.d3 { animation-delay: 1.92s; }
+  .pulse-dot.d2 { animation-delay: 1.2s; }
+  .pulse-dot.d3 { animation-delay: 2.4s; }
   @keyframes node-pulse {
     0%, 100% { opacity: 0.3; transform: scale(1); }
     20% { opacity: 1; transform: scale(1.5); }
@@ -223,9 +223,9 @@
   }
 
   .flow-arrow {
-    animation: arrow-glow 2.4s ease-in-out infinite;
+    animation: arrow-glow 3s ease-in-out infinite;
   }
-  .flow-arrow.a2 { animation-delay: 1.44s; }
+  .flow-arrow.a2 { animation-delay: 1.8s; }
   @keyframes arrow-glow {
     0%, 100% { opacity: 0.35; }
     20% { opacity: 1; }
