@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI-автоматизация - ИИ-сотрудник для вашего бизнеса</title>
+<title>SloneStudio - ИИ-сотрудник для вашего бизнеса</title>
 <meta name="description" content="Внедрение ИИ-агентов в Telegram и автоматизация рутины на n8n для агентств недвижимости, автосервисов, студий красоты и цветочных мастерских.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -82,8 +83,8 @@
     gap: 12px;
   }
 
-  .logo { display: flex; align-items: center; }
-  .logo img { display: block; width: 190px; height: auto; }
+  .logo { display: flex; align-items: center; flex-shrink: 0; text-decoration: none; }
+  .logo svg { display: block; height: 40px; width: auto; }
 
   .btn {
     display: inline-block;
@@ -117,7 +118,7 @@
   section { scroll-margin-top: 80px; }
 
   @media (max-width: 639px) {
-    .logo img { width: 150px; }
+    .logo svg { height: 36px; }
     .btn-header { font-size: 13px; padding: 10px 14px; min-height: 44px; margin-right: 12px; }
     .btn-full { display: none; }
     .btn-short { display: inline; }
@@ -474,7 +475,8 @@
     gap: 12px;
     align-items: flex-start;
   }
-  .footer-inner img { width: 170px; opacity: 0.9; }
+  .footer-inner svg { height: 34px; width: auto; opacity: 0.9; }
+  .footer-logo { display: inline-flex; flex-shrink: 0; text-decoration: none; }
 
   /* ---------- Планшет ---------- */
   @media (min-width: 640px) {
@@ -482,7 +484,7 @@
     .section-title { font-size: 34px; }
     .hero h1 { font-size: 44px; }
     .hero p { font-size: 18px; }
-    .logo img { width: 230px; }
+    .logo svg { height: 44px; }
     .grid-2 { grid-template-columns: repeat(2, 1fr); }
     .form-card { padding: 40px 36px; }
   }
@@ -507,7 +509,16 @@
 <!-- Версия 20.11.2026: кнопки с золотым свечением и бегущим бликом, автообновление GitHub-Vercel настроено -->
 <header>
   <div class="container header-inner">
-    <a class="logo" href="#top"><img src="logo.svg" alt="AI-автоматизация - логотип"></a>
+    <a class="logo" href="#top" aria-label="SloneStudio - на главную"><svg viewBox="0 0 206 48" role="img" aria-hidden="true">
+      <rect x="2" y="2" width="44" height="44" rx="11" fill="#18181B"/>
+      <path d="M30.5 15H19.5a5.5 5.5 0 0 0 0 11h9a5.5 5.5 0 0 1 0 11H17.5" fill="none" stroke="#D4A373" stroke-width="4.5" stroke-linecap="round"/>
+      <path d="M30.5 15H35" stroke="#D4A373" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="38.5" cy="15" r="2.4" fill="#D4A373"/>
+      <path d="M17.5 37H13" stroke="#D4A373" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="10" cy="37" r="2.4" fill="#D4A373"/>
+      <text x="58" y="24" font-family="Manrope, sans-serif" font-size="21" font-weight="800" letter-spacing="-0.02em" fill="#18181B">Slone<tspan fill="#D4A373" font-weight="600">Studio</tspan></text>
+      <text x="58" y="40" font-family="Inter, sans-serif" font-size="10.5" font-weight="500" fill="#18181B" fill-opacity="0.6">AI-сотрудники для бизнеса</text>
+    </svg></a>
     <a class="btn btn-amber btn-header" href="#form"><span class="btn-full">Заказать консультацию</span><span class="btn-short">Заказать</span></a>
   </div>
 </header>
@@ -760,7 +771,16 @@
 
 <footer>
   <div class="container footer-inner">
-    <img src="logo.svg" alt="AI-автоматизация - логотип">
+    <a class="footer-logo" href="#top" aria-label="SloneStudio - на главную"><svg viewBox="0 0 206 48" role="img" aria-hidden="true">
+      <rect x="2" y="2" width="44" height="44" rx="11" fill="#18181B"/>
+      <path d="M30.5 15H19.5a5.5 5.5 0 0 0 0 11h9a5.5 5.5 0 0 1 0 11H17.5" fill="none" stroke="#D4A373" stroke-width="4.5" stroke-linecap="round"/>
+      <path d="M30.5 15H35" stroke="#D4A373" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="38.5" cy="15" r="2.4" fill="#D4A373"/>
+      <path d="M17.5 37H13" stroke="#D4A373" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="10" cy="37" r="2.4" fill="#D4A373"/>
+      <text x="58" y="24" font-family="Manrope, sans-serif" font-size="21" font-weight="800" letter-spacing="-0.02em" fill="#18181B">Slone<tspan fill="#D4A373" font-weight="600">Studio</tspan></text>
+      <text x="58" y="40" font-family="Inter, sans-serif" font-size="10.5" font-weight="500" fill="#18181B" fill-opacity="0.6">AI-сотрудники для бизнеса</text>
+    </svg></a>
     <span>ИИ-агенты в Telegram и автоматизация на n8n · 2026</span>
   </div>
 </footer>
