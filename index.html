@@ -208,21 +208,32 @@
   }
 
   /* Пульсирующие точки статуса на нодах */
+  /* Волна сверху вниз: общий цикл 2,4 с, мягкий ease-in-out */
   .pulse-dot {
     transform-box: fill-box;
     transform-origin: center;
-    animation: node-pulse 1.8s ease-in-out infinite;
+    animation: node-pulse 2.4s ease-in-out infinite;
   }
-  .pulse-dot.d2 { animation-delay: 0.4s; }
-  .pulse-dot.d3 { animation-delay: 0.8s; }
-  .pulse-dot.d4 { animation-delay: 1.2s; }
+  .pulse-dot.d2 { animation-delay: 0.96s; }
+  .pulse-dot.d3 { animation-delay: 1.92s; }
   @keyframes node-pulse {
     0%, 100% { opacity: 0.3; transform: scale(1); }
-    50% { opacity: 1; transform: scale(1.6); }
+    20% { opacity: 1; transform: scale(1.5); }
+    40% { opacity: 0.3; transform: scale(1); }
+  }
+
+  .flow-arrow {
+    animation: arrow-glow 2.4s ease-in-out infinite;
+  }
+  .flow-arrow.a2 { animation-delay: 1.44s; }
+  @keyframes arrow-glow {
+    0%, 100% { opacity: 0.35; }
+    20% { opacity: 1; }
+    40% { opacity: 0.35; }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .flow-line, .pulse-dot { animation: none; }
+    .flow-line, .pulse-dot, .flow-arrow { animation: none; }
   }
 
   /* ---------- Карточки задач ---------- */
@@ -520,15 +531,16 @@
       </div>
       <div class="hero-art">
         <svg viewBox="0 0 480 344" role="img" aria-label="Схема работы ИИ-агента: заявка в Telegram, ИИ-агент 24/7, запись в таблицу и CRM">
-          <defs>
-            <marker id="flow-arrow" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-              <path d="M0 0 L10 5 L0 10 z" fill="#D97706"/>
-            </marker>
-          </defs>
 
-          <!-- Стрелки потока -->
-          <line class="flow-line" x1="240" y1="108" x2="240" y2="121" stroke="#D97706" stroke-width="2.5" stroke-linecap="round" marker-end="url(#flow-arrow)"/>
-          <line class="flow-line" x1="240" y1="216" x2="240" y2="229" stroke="#D97706" stroke-width="2.5" stroke-linecap="round" marker-end="url(#flow-arrow)"/>
+          <!-- Стрелки потока: линия и наконечник светятся целиком, одна за другой -->
+          <g class="flow-arrow a1">
+            <line class="flow-line" x1="240" y1="108" x2="240" y2="117" stroke="#D97706" stroke-width="2.5" stroke-linecap="round"/>
+            <polygon points="234,115 246,115 240,124" fill="#D97706"/>
+          </g>
+          <g class="flow-arrow a2">
+            <line class="flow-line" x1="240" y1="216" x2="240" y2="225" stroke="#D97706" stroke-width="2.5" stroke-linecap="round"/>
+            <polygon points="234,223 246,223 240,232" fill="#D97706"/>
+          </g>
 
           <!-- Нода 1: Заявка в Telegram -->
           <g>
@@ -572,11 +584,10 @@
             <text x="132" y="294" font-family="Inter, sans-serif" font-size="13" fill="#0F172A" fill-opacity="0.55">заявки не теряются</text>
           </g>
 
-          <!-- Пульсирующие золотые точки: сверху вниз с шагом 0.4 с -->
+          <!-- Пульсирующие золотые точки: по одной напротив каждой карточки, волна сверху вниз -->
           <circle class="pulse-dot d1" cx="412" cy="62" r="4" fill="#D97706"/>
           <circle class="pulse-dot d2" cx="412" cy="170" r="4" fill="#D97706"/>
           <circle class="pulse-dot d3" cx="412" cy="278" r="4" fill="#D97706"/>
-          <circle class="pulse-dot d4" cx="240" cy="335" r="4.5" fill="#D97706"/>
         </svg>
       </div>
     </div>
