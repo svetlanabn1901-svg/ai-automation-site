@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SloneStudio - ИИ-сотрудник для вашего бизнеса</title>
+<meta name="description" content="SloneStudio: внедрение ИИ-агентов в Telegram и автоматизация рутины на n8n для агентств недвижимости, автосервисов, студий красоты и цветочных мастерских.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --graphite: #0F172A;
+    --amber: #D97706;
+    --amber-dark: #B45309;
+    --bg: #FAFAF9;
+    --text-soft: rgba(15, 23, 42, 0.68);
+    --line: rgba(15, 23, 42, 0.1);
+    --white: #FFFFFF;
+    --radius: 16px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--graphite);
+    background: var(--bg);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3 {
+    font-family: 'Manrope', system-ui, sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+
+  img { max-width: 100%; height: auto; }
+
+  .container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  section { padding: 64px 0; }
+
+  .section-title {
+    font-size: 28px;
+    margin-bottom: 12px;
+  }
+
+  .section-sub {
+    color: var(--text-soft);
+    max-width: 620px;
+    margin-bottom: 36px;
+  }
+
+  .accent { color: var(--amber); }
+
+  /* ---------- Шапка ---------- */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(250, 250, 249, 0.92);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 0;
+    gap: 12px;
+  }
+
+  .logo { display: flex; align-items: center; flex-shrink: 0; text-decoration: none; }
+  .logo svg { display: block; height: 40px; width: auto; }
+
+  .btn {
+    display: inline-block;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    text-decoration: none;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    border-radius: 12px;
+    padding: 14px 28px;
+    min-height: 52px;
+    line-height: 1.4;
+    transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.25s ease;
+  }
+
+  .btn-amber {
+    background: var(--amber);
+    color: var(--white);
+  }
+  .btn-amber:hover {
+    background: var(--amber-dark);
+    box-shadow: 0 6px 24px rgba(217, 119, 6, 0.45), 0 0 14px rgba(217, 119, 6, 0.35);
+  }
+  .btn-amber:active { transform: scale(0.98); }
+
+  .btn-header { padding: 10px 20px; min-height: 44px; font-size: 14px; white-space: nowrap; display: inline-flex; align-items: center; justify-content: center; }
+  .btn-short { display: none; }
+
+  section { scroll-margin-top: 80px; }
+
+  @media (max-width: 639px) {
+    .logo svg { height: 36px; }
+    .btn-header { font-size: 13px; padding: 10px 14px; min-height: 44px; margin-right: 12px; }
+    .btn-full { display: none; }
+    .btn-short { display: inline; }
+  }
+
+  /* ---------- Первый экран ---------- */
+  .hero {
+    padding: 72px 0 64px;
+    background:
+      radial-gradient(600px 320px at 85% -10%, rgba(217, 119, 6, 0.08), transparent 70%),
+      var(--bg);
+  }
+
+  .hero-tag {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--amber);
+    background: rgba(217, 119, 6, 0.1);
+    border-radius: 999px;
+    padding: 6px 14px;
+    margin-bottom: 20px;
+  }
+
+  .hero h1 {
+    font-size: 34px;
+    margin-bottom: 16px;
+    max-width: 700px;
+  }
+
+  .hero p {
+    font-size: 17px;
+    color: var(--text-soft);
+    max-width: 560px;
+    margin-bottom: 32px;
+  }
+
+  .hero-points {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 28px;
+  }
+
+  .hero-points li {
+    font-size: 14px;
+    font-weight: 500;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 8px 16px;
+  }
+
+  /* ---------- Схема работы ИИ-агента ---------- */
+  .hero-inner { display: grid; gap: 44px; }
+
+  .hero-art { position: relative; }
+
+  .hero-art::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 420px;
+    height: 420px;
+    background: radial-gradient(closest-side, rgba(217, 119, 6, 0.1), transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-art svg {
+    position: relative;
+    display: block;
+    width: 100%;
+    max-width: 460px;
+    height: auto;
+    margin: 0 auto;
+  }
+
+  /* Оживление схемы: бегущий пунктир потока */
+  .flow-line {
+    stroke-dasharray: 7 7;
+    animation: flow-dash 0.9s linear infinite;
+  }
+  @keyframes flow-dash {
+    to { stroke-dashoffset: -14; }
+  }
+
+  /* Пульсирующие точки статуса на нодах */
+  /* Волна сверху вниз: общий цикл 3 с, мягкий ease-in-out */
+  .pulse-dot {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: node-pulse 3s ease-in-out infinite;
+  }
+  .pulse-dot.d2 { animation-delay: 1.2s; }
+  .pulse-dot.d3 { animation-delay: 2.4s; }
+  @keyframes node-pulse {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    20% { opacity: 1; transform: scale(1.5); }
+    40% { opacity: 0.3; transform: scale(1); }
+  }
+
+  .flow-arrow {
+    animation: arrow-glow 3s ease-in-out infinite;
+  }
+  .flow-arrow.a2 { animation-delay: 1.8s; }
+  @keyframes arrow-glow {
+    0%, 100% { opacity: 0.35; }
+    20% { opacity: 1; }
+    40% { opacity: 0.35; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .flow-line, .pulse-dot, .flow-arrow { animation: none; }
+  }
+
+  /* ---------- Карточки задач ---------- */
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .card {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 28px 24px;
+  }
+
+  .card-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: rgba(217, 119, 6, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    margin-bottom: 16px;
+  }
+
+  .card h3 {
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+
+  .card p {
+    font-size: 15px;
+    color: var(--text-soft);
+  }
+
+  /* ---------- Кейсы ---------- */
+  .cases { background: var(--white); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+
+  .case-card {
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 28px 24px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .case-badge {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--amber);
+    margin-bottom: 10px;
+  }
+
+  .case-card h3 { font-size: 19px; margin-bottom: 10px; }
+  .case-card p { font-size: 15px; color: var(--text-soft); flex: 1; }
+
+  .case-result {
+    margin-top: 18px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--graphite);
+  }
+  .case-result span { color: var(--amber); }
+
+  /* ---------- Тарифы ---------- */
+  .price-card {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 32px 26px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .price-card.featured {
+    border: 2px solid var(--amber);
+    position: relative;
+  }
+
+  .price-flag {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--amber);
+    color: var(--white);
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 999px;
+    padding: 5px 14px;
+    white-space: nowrap;
+  }
+
+  .price-card h3 { font-size: 20px; margin-bottom: 6px; }
+  .price-for { font-size: 14px; color: var(--text-soft); margin-bottom: 18px; }
+
+  .price-value {
+    font-family: 'Manrope', system-ui, sans-serif;
+    font-weight: 800;
+    font-size: 32px;
+    letter-spacing: -0.02em;
+    margin-bottom: 4px;
+  }
+  .price-note { font-size: 13px; color: var(--text-soft); margin-bottom: 20px; }
+
+  .price-list {
+    list-style: none;
+    margin-bottom: 26px;
+    flex: 1;
+  }
+  .price-list li {
+    font-size: 15px;
+    padding: 7px 0 7px 26px;
+    position: relative;
+    color: var(--text-soft);
+  }
+  .price-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 13px;
+    width: 14px;
+    height: 8px;
+    border-left: 2.5px solid var(--amber);
+    border-bottom: 2.5px solid var(--amber);
+    transform: rotate(-45deg);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--graphite);
+    border: 1.5px solid var(--line);
+  }
+  .btn-outline:hover {
+    border-color: var(--amber);
+    color: var(--amber);
+    box-shadow: 0 4px 18px rgba(217, 119, 6, 0.28), 0 0 10px rgba(217, 119, 6, 0.16);
+  }
+
+  /* ---------- Свечение и бегущий блик кнопок ---------- */
+  .btn {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn::after {
+    content: "";
+    position: absolute;
+    top: -20%;
+    left: -80%;
+    width: 50%;
+    height: 140%;
+    background: linear-gradient(105deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+    transform: skewX(-20deg);
+    transition: left 0.6s ease;
+    pointer-events: none;
+  }
+
+  .btn:hover::after { left: 130%; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .btn::after { display: none; }
+  }
+
+  /* ---------- Форма ---------- */
+  .cta-section { background: var(--graphite); color: var(--white); }
+  .cta-section .section-title { color: var(--white); }
+  .cta-section .section-sub { color: rgba(250, 250, 249, 0.7); }
+
+  .form-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 32px 24px;
+    max-width: 560px;
+    color: var(--graphite);
+  }
+
+  .form-card label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  .form-card input,
+  .form-card select,
+  .form-card textarea {
+    width: 100%;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 16px;
+    color: var(--graphite);
+    background: var(--bg);
+    border: 1.5px solid var(--line);
+    border-radius: 10px;
+    padding: 13px 14px;
+    margin-bottom: 18px;
+    min-height: 50px;
+  }
+
+  .form-card textarea { resize: vertical; min-height: 90px; }
+
+  .form-card input:focus,
+  .form-card select:focus,
+  .form-card textarea:focus {
+    outline: none;
+    border-color: var(--amber);
+  }
+
+  .form-card .btn { width: 100%; }
+
+  .form-note {
+    font-size: 13px;
+    color: var(--text-soft);
+    margin-top: 12px;
+    text-align: center;
+  }
+
+  /* ---------- Футер ---------- */
+  footer {
+    background: #E5E7EB;
+    color: rgba(15, 23, 42, 0.6);
+    font-size: 14px;
+    padding: 32px 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .footer-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .footer-inner svg { height: 34px; width: auto; opacity: 0.9; }
+  .footer-logo { display: inline-flex; flex-shrink: 0; text-decoration: none; }
+
+  /* ---------- Планшет ---------- */
+  @media (min-width: 640px) {
+    section { padding: 80px 0; }
+    .section-title { font-size: 34px; }
+    .hero h1 { font-size: 44px; }
+    .hero p { font-size: 18px; }
+    .logo svg { height: 44px; }
+    .grid-2 { grid-template-columns: repeat(2, 1fr); }
+    .form-card { padding: 40px 36px; }
+  }
+
+  /* ---------- Компьютер ---------- */
+  @media (min-width: 900px) {
+    .hero { padding: 100px 0 90px; }
+    .hero-inner { grid-template-columns: 1.05fr 0.95fr; align-items: center; }
+    .hero h1 { font-size: 54px; }
+    .grid-3 { grid-template-columns: repeat(3, 1fr); }
+    .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .footer-inner { flex-direction: row; justify-content: space-between; align-items: center; }
+  }
+
+  @media (min-width: 1100px) {
+    .grid-4 { grid-template-columns: repeat(4, 1fr); }
+  }
+
+  /* ---------- Новый фирменный стиль SloneStudio ---------- */
+  :root {
+    --graphite: #F8FAFC;
+    --amber: #F59E0B;
+    --amber-dark: #FBBF24;
+    --bg: #0F172A;
+    --text-soft: rgba(248, 250, 252, 0.72);
+    --line: rgba(148, 163, 184, 0.22);
+    --white: #162238;
+  }
+
+  body {
+    color: var(--graphite);
+    background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+  }
+
+  header {
+    background: rgba(15, 23, 42, 0.92);
+    border-bottom-color: rgba(148, 163, 184, 0.18);
+  }
+
+  .hero {
+    background:
+      radial-gradient(600px 320px at 85% -10%, rgba(56, 189, 248, 0.12), transparent 70%),
+      radial-gradient(540px 360px at 12% 65%, rgba(245, 158, 11, 0.08), transparent 72%),
+      linear-gradient(rgba(56, 189, 248, 0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(56, 189, 248, 0.045) 1px, transparent 1px),
+      linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+    background-size: auto, auto, 64px 64px, 64px 64px, auto;
+  }
+
+  .hero-tag { background: rgba(245, 158, 11, 0.12); }
+  .hero-points li { background: rgba(22, 34, 56, 0.86); }
+  .hero-art::before { background: radial-gradient(closest-side, rgba(245, 158, 11, 0.13), transparent 70%); max-width: 100%; }
+  .card-icon { background: rgba(245, 158, 11, 0.14); }
+
+  .card,
+  .price-card,
+  .form-card {
+    box-shadow: 0 12px 34px rgba(2, 6, 23, 0.16);
+  }
+
+  .hero-art rect[width="400"] { fill: #162238; stroke: #334155; }
+  .hero-art rect[width="400"][stroke-width="2"] { stroke: #F59E0B; }
+  .hero-art text { fill: #F8FAFC; }
+  .hero-art text[fill-opacity] { fill: #CBD5E1; fill-opacity: 1; }
+  .hero-art [stroke="#D97706"] { stroke: #F59E0B; }
+  .hero-art [fill="#D97706"] { fill: #F59E0B; }
+
+  .btn-amber:hover {
+    box-shadow: 0 6px 24px rgba(245, 158, 11, 0.4), 0 0 14px rgba(245, 158, 11, 0.28);
+  }
+  .btn-outline:hover {
+    box-shadow: 0 4px 18px rgba(245, 158, 11, 0.24), 0 0 10px rgba(245, 158, 11, 0.14);
+  }
+  .btn:focus-visible,
+  .logo:focus-visible,
+  .footer-logo:focus-visible {
+    outline: 3px solid #38BDF8;
+    outline-offset: 4px;
+  }
+  .form-card input:focus,
+  .form-card select:focus,
+  .form-card textarea:focus {
+    outline: 2px solid #38BDF8;
+    outline-offset: 2px;
+  }
+
+  .cta-section { background: #111C30; color: #F8FAFC; }
+  .cta-section .section-title { color: #F8FAFC; }
+  .cta-section .section-sub { color: rgba(248, 250, 252, 0.72); }
+
+  footer {
+    background: #0B1220;
+    color: rgba(248, 250, 252, 0.66);
+    border-top-color: rgba(148, 163, 184, 0.18);
+  }
+</style>
+</head>
+<body>
+
+<!-- Версия 20.11.2026: кнопки с золотым свечением и бегущим бликом, автообновление GitHub-Vercel настроено -->
+<header>
+  <div class="container header-inner">
+    <a class="logo" href="#top" aria-label="SloneStudio - на главную"><svg viewBox="0 0 280 64" role="img" aria-hidden="true">
+      <g transform="translate(-18 -16) scale(.13)">
+        <path fill="#F59E0B" d="M168 464C150 410 153 337 181 281C213 217 275 184 345 185C395 186 437 201 470 224C485 202 510 190 537 194C568 198 590 221 597 249C606 277 599 302 584 325C577 337 574 350 579 363C586 378 602 380 615 366C630 350 632 327 625 306C617 281 611 257 616 232C619 206 635 186 656 178C674 171 690 178 694 190C698 202 691 213 680 216C669 218 661 226 660 239C658 255 668 274 675 296C689 337 679 381 650 407C626 429 594 437 564 426C547 420 532 408 522 394L508 466C506 479 494 489 480 489H218C196 489 177 481 168 464Z"/>
+        <path fill="#0F172A" opacity="0.86" d="M434 222C388 212 345 245 339 297C332 353 367 397 421 411C455 384 475 343 474 299C473 262 459 235 434 222Z"/>
+        <circle cx="537" cy="266" r="7" fill="#0F172A"/>
+      </g>
+      <text x="86" y="27" font-family="Manrope, sans-serif" font-size="22" font-weight="800" letter-spacing="-0.02em" fill="#F8FAFC">Slone<tspan fill="#F59E0B">Studio</tspan></text>
+      <text x="86" y="44" font-family="Inter, sans-serif" font-size="10.5" font-weight="500" fill="#CBD5E1">AI-сотрудники для бизнеса</text>
+    </svg></a>
+    <a class="btn btn-amber btn-header" href="#form"><span class="btn-full">Заказать консультацию</span><span class="btn-short">Заказать</span></a>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- Первый экран -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <div class="hero-text">
+        <span class="hero-tag">SloneStudio · ИИ-агенты в Telegram + автоматизация на n8n</span>
+        <h1>ИИ-сотрудник, который отвечает клиентам, пока вы занимаетесь делом</h1>
+        <p>Внедряю ИИ-агентов в Telegram и автоматизирую рутину на n8n для агентств недвижимости, автосервисов, студий красоты и цветочных мастерских. Клиенты получают ответ за секунды, а вы - свободное время.</p>
+        <a class="btn btn-amber" href="#form">Заказать консультацию</a>
+        <ul class="hero-points">
+          <li>Ответ клиенту за 5 секунд</li>
+          <li>Запись без переписки</li>
+          <li>Работает 24/7</li>
+          <li>Без зарплаты и отпусков</li>
+        </ul>
+      </div>
+      <div class="hero-art">
+        <svg viewBox="0 0 480 344" role="img" aria-label="Схема работы ИИ-агента: заявка в Telegram, ИИ-агент 24/7, запись в таблицу и CRM">
+
+          <!-- Стрелки потока: линия и наконечник светятся целиком, одна за другой -->
+          <g class="flow-arrow a1">
+            <line class="flow-line" x1="240" y1="108" x2="240" y2="117" stroke="#D97706" stroke-width="2.5" stroke-linecap="round"/>
+            <polygon points="234,115 246,115 240,124" fill="#D97706"/>
+          </g>
+          <g class="flow-arrow a2">
+            <line class="flow-line" x1="240" y1="216" x2="240" y2="225" stroke="#D97706" stroke-width="2.5" stroke-linecap="round"/>
+            <polygon points="234,223 246,223 240,232" fill="#D97706"/>
+          </g>
+
+          <!-- Нода 1: Заявка в Telegram -->
+          <g>
+            <rect x="40" y="18" width="400" height="88" rx="16" fill="#FFFFFF" stroke="#0F172A" stroke-opacity="0.1"/>
+            <rect x="64" y="38" width="48" height="48" rx="12" fill="#D97706" fill-opacity="0.12"/>
+            <g transform="translate(76 50)" fill="none" stroke="#D97706" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 2 L11 13"/>
+              <path d="M22 2 L15 22 L11 13 L2 11 Z"/>
+            </g>
+            <text x="132" y="57" font-family="Manrope, sans-serif" font-weight="700" font-size="17" fill="#0F172A">Заявка в Telegram</text>
+            <text x="132" y="78" font-family="Inter, sans-serif" font-size="13" fill="#0F172A" fill-opacity="0.55">клиент пишет в мессенджер</text>
+          </g>
+
+          <!-- Нода 2: ИИ-агент 24/7 -->
+          <g>
+            <rect x="40" y="126" width="400" height="88" rx="16" fill="#FFFFFF" stroke="#D97706" stroke-width="2"/>
+            <rect x="64" y="146" width="48" height="48" rx="12" fill="#D97706" fill-opacity="0.12"/>
+            <g transform="translate(76 158)" fill="none" stroke="#D97706" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3 L12 7"/>
+              <circle cx="12" cy="2.4" r="1.4" fill="#D97706" stroke="none"/>
+              <rect x="4" y="7" width="16" height="12" rx="3"/>
+              <circle cx="9.5" cy="12.5" r="1.1" fill="#D97706" stroke="none"/>
+              <circle cx="14.5" cy="12.5" r="1.1" fill="#D97706" stroke="none"/>
+              <path d="M9.5 16 L14.5 16"/>
+            </g>
+            <text x="132" y="165" font-family="Manrope, sans-serif" font-weight="700" font-size="17" fill="#0F172A">ИИ-агент 24/7</text>
+            <text x="132" y="186" font-family="Inter, sans-serif" font-size="13" fill="#0F172A" fill-opacity="0.55">отвечает и записывает сам</text>
+          </g>
+
+          <!-- Нода 3: Запись в таблицу и CRM -->
+          <g>
+            <rect x="40" y="234" width="400" height="88" rx="16" fill="#FFFFFF" stroke="#0F172A" stroke-opacity="0.1"/>
+            <rect x="64" y="254" width="48" height="48" rx="12" fill="#D97706" fill-opacity="0.12"/>
+            <g transform="translate(76 266)" fill="none" stroke="#D97706" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3.5" y="4.5" width="17" height="15" rx="2"/>
+              <path d="M3.5 9.5 L20.5 9.5"/>
+              <path d="M9.5 9.5 L9.5 19.5"/>
+              <path d="M13 15 L15 17 L18.5 13.5"/>
+            </g>
+            <text x="132" y="273" font-family="Manrope, sans-serif" font-weight="700" font-size="17" fill="#0F172A">Запись в таблицу и CRM</text>
+            <text x="132" y="294" font-family="Inter, sans-serif" font-size="13" fill="#0F172A" fill-opacity="0.55">заявки не теряются</text>
+          </g>
+
+          <!-- Пульсирующие золотые точки: по одной напротив каждой карточки, волна сверху вниз -->
+          <circle class="pulse-dot d1" cx="412" cy="62" r="4" fill="#D97706"/>
+          <circle class="pulse-dot d2" cx="412" cy="170" r="4" fill="#D97706"/>
+          <circle class="pulse-dot d3" cx="412" cy="278" r="4" fill="#D97706"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- Задачи -->
+  <section id="tasks">
+    <div class="container">
+      <h2 class="section-title">Какие задачи решает <span class="accent">ИИ-сотрудник</span></h2>
+      <p class="section-sub">Берёт на себя рутину, которая съедает ваш день. Настраивается под ваш бизнес за несколько дней.</p>
+      <div class="grid grid-2 grid-3">
+        <div class="card">
+          <div class="card-icon">💬</div>
+          <h3>Отвечает клиентам в Telegram</h3>
+          <p>Мгновенно реагирует на сообщения, отвечает на типовые вопросы и доводит клиента до заявки, даже ночью и в выходные.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">📅</div>
+          <h3>Записывает и напоминает</h3>
+          <p>Сам записывает клиента на удобное время, отправляет напоминание и переносит визит, если планы изменились.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">📋</div>
+          <h3>Собирает заявки в одно место</h3>
+          <p>Каждая заявка сразу попадает в таблицу или CRM. Ничего не теряется в переписках и заметках.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">💰</div>
+          <h3>Считает и выставляет смету</h3>
+          <p>По вашим ценам быстро собирает расчёт для клиента и отправляет его прямо в чат.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🔁</div>
+          <h3>Возвращает старых клиентов</h3>
+          <p>Напоминает о себе тем, кто давно не обращался, и предлагает актуальную услугу или акцию.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">📊</div>
+          <h3>Показывает цифры</h3>
+          <p>Раз в неделю присылает короткий отчёт: сколько заявок, откуда пришли клиенты и что сработало лучше всего.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Кейсы -->
+  <section class="cases" id="cases">
+    <div class="container">
+      <h2 class="section-title">Как это работает у <span class="accent">таких же, как вы</span></h2>
+      <p class="section-sub">Четыре ниши, в которых ИИ-сотрудник окупается быстрее всего.</p>
+      <div class="grid grid-2 grid-4">
+
+        <div class="case-card">
+          <div class="case-badge">Агентство недвижимости</div>
+          <h3>Ни одна заявка не уходит конкуренту</h3>
+          <p>Пока риелтор на показе, ИИ отвечает на запросы по объектам, подбирает варианты из базы и записывает на просмотр.</p>
+          <div class="case-result"><span>+40%</span> заявок доходит до сделки</div>
+        </div>
+
+        <div class="case-card">
+          <div class="case-badge">Автосервис</div>
+          <h3>Запись без звонков и бумажек</h3>
+          <p>Клиент пишет в Telegram, ИИ называет свободные окна, считает предварительную стоимость и напоминает о визите.</p>
+          <div class="case-result"><span>2 часа</span> в день экономит приёмщик</div>
+        </div>
+
+        <div class="case-card">
+          <div class="case-badge">Студия красоты</div>
+          <h3>Расписание мастеров без простоев</h3>
+          <p>ИИ заполняет окна в расписании, напоминает клиентам о визите и предлагает перенестись, если кто-то отменился.</p>
+          <div class="case-result"><span>-70%</span> непришедших клиентов</div>
+        </div>
+
+        <div class="case-card">
+          <div class="case-badge">Цветочная мастерская</div>
+          <h3>Заказы принимаются даже ночью</h3>
+          <p>ИИ помогает выбрать букет, уточняет бюджет и доставку, а утром флористу остаётся только собрать заказ.</p>
+          <div class="case-result"><span>+25%</span> заказов вне рабочего времени</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Тарифы -->
+  <section id="prices">
+    <div class="container">
+      <h2 class="section-title">Понятные <span class="accent">тарифы</span></h2>
+      <p class="section-sub">Без скрытых доплат. Оплачиваете только готовое решение, которое уже работает на вас.</p>
+      <div class="grid grid-2 grid-3">
+
+        <div class="price-card">
+          <h3>Старт</h3>
+          <div class="price-for">Проверить, зайдёт ли вам ИИ</div>
+          <div class="price-value">15 000 ₽</div>
+          <div class="price-note">разовая настройка</div>
+          <ul class="price-list">
+            <li>ИИ-агент в Telegram с ответами на типовые вопросы</li>
+            <li>Запись клиентов в вашу таблицу</li>
+            <li>Обучение за 1 созвон</li>
+          </ul>
+          <a class="btn btn-outline" href="#form">Выбрать «Старт»</a>
+        </div>
+
+        <div class="price-card featured">
+          <div class="price-flag">Выбирают чаще всего</div>
+          <h3>Бизнес</h3>
+          <div class="price-for">Полная автоматизация рутины</div>
+          <div class="price-value">35 000 ₽</div>
+          <div class="price-note">разовая настройка</div>
+          <ul class="price-list">
+            <li>Всё из тарифа «Старт»</li>
+            <li>Автоматизации на n8n: заявки, напоминания, отчёты</li>
+            <li>Интеграция с таблицами и CRM</li>
+            <li>Месяц поддержки и доработок</li>
+          </ul>
+          <a class="btn btn-amber" href="#form">Выбрать «Бизнес»</a>
+        </div>
+
+        <div class="price-card">
+          <h3>Рост</h3>
+          <div class="price-for">Кому нужно больше продаж</div>
+          <div class="price-value">от 60 000 ₽</div>
+          <div class="price-note">настройка + ведение</div>
+          <ul class="price-list">
+            <li>Всё из тарифа «Бизнес»</li>
+            <li>Возврат старых клиентов и рассылки</li>
+            <li>Несколько точек или филиалов</li>
+            <li>Постоянное развитие сценариев</li>
+          </ul>
+          <a class="btn btn-outline" href="#form">Обсудить «Рост»</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Форма -->
+  <section class="cta-section" id="form">
+    <div class="container">
+      <h2 class="section-title">Обсудим ваш бизнес?</h2>
+      <p class="section-sub">Оставьте заявку, и в течение дня я напишу вам в Telegram: разберём ваши задачи и посчитаем, сколько времени вернёт автоматизация.</p>
+      <form class="form-card" action="#" method="post">
+        <label for="name">Как вас зовут</label>
+        <input type="text" id="name" name="name" placeholder="Например, Анна" required>
+
+        <label for="contact">Telegram или телефон</label>
+        <input type="text" id="contact" name="contact" placeholder="@username или +7 ..." required>
+
+        <label for="niche">Ваш бизнес</label>
+        <select id="niche" name="niche" required>
+          <option value="" disabled selected>Выберите нишу</option>
+          <option value="realty">Агентство недвижимости</option>
+          <option value="auto">Автосервис</option>
+          <option value="beauty">Студия красоты</option>
+          <option value="flowers">Цветочная мастерская</option>
+          <option value="other">Другое</option>
+        </select>
+
+        <label for="message">Что больше всего отнимает время (необязательно)</label>
+        <textarea id="message" name="message" placeholder="Например: тонна однотипных вопросов в WhatsApp и записи в тетради"></textarea>
+
+        <button class="btn btn-amber" type="submit">Заказать консультацию</button>
+        <p class="form-note">Нажимая кнопку, вы соглашаетесь на обработку заявки. Никакого спама, только ответ по делу.</p>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container footer-inner">
+    <a class="footer-logo" href="#top" aria-label="SloneStudio - на главную"><svg viewBox="0 0 280 64" role="img" aria-hidden="true">
+      <g transform="translate(-18 -16) scale(.13)">
+        <path fill="#F59E0B" d="M168 464C150 410 153 337 181 281C213 217 275 184 345 185C395 186 437 201 470 224C485 202 510 190 537 194C568 198 590 221 597 249C606 277 599 302 584 325C577 337 574 350 579 363C586 378 602 380 615 366C630 350 632 327 625 306C617 281 611 257 616 232C619 206 635 186 656 178C674 171 690 178 694 190C698 202 691 213 680 216C669 218 661 226 660 239C658 255 668 274 675 296C689 337 679 381 650 407C626 429 594 437 564 426C547 420 532 408 522 394L508 466C506 479 494 489 480 489H218C196 489 177 481 168 464Z"/>
+        <path fill="#0F172A" opacity="0.86" d="M434 222C388 212 345 245 339 297C332 353 367 397 421 411C455 384 475 343 474 299C473 262 459 235 434 222Z"/>
+        <circle cx="537" cy="266" r="7" fill="#0F172A"/>
+      </g>
+      <text x="86" y="27" font-family="Manrope, sans-serif" font-size="22" font-weight="800" letter-spacing="-0.02em" fill="#F8FAFC">Slone<tspan fill="#F59E0B">Studio</tspan></text>
+      <text x="86" y="44" font-family="Inter, sans-serif" font-size="10.5" font-weight="500" fill="#CBD5E1">AI-сотрудники для бизнеса</text>
+    </svg></a>
+    <span>SloneStudio · ИИ-агенты в Telegram и автоматизация на n8n · 2026</span>
+  </div>
+</footer>
+
+</body>
+</html>

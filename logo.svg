@@ -1,9 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 64" width="280" height="64" role="img" aria-label="SloneStudio">
-  <g transform="translate(-18 -16) scale(.13)">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 64" width="250" height="64" role="img" aria-label="SloneStudio">
+  <rect x="2" y="2" width="60" height="60" rx="16" fill="#1E293B"/>
+  <g transform="translate(-6.3 1.9) scale(.085)">
     <path fill="#F59E0B" d="M168 464C150 410 153 337 181 281C213 217 275 184 345 185C395 186 437 201 470 224C485 202 510 190 537 194C568 198 590 221 597 249C606 277 599 302 584 325C577 337 574 350 579 363C586 378 602 380 615 366C630 350 632 327 625 306C617 281 611 257 616 232C619 206 635 186 656 178C674 171 690 178 694 190C698 202 691 213 680 216C669 218 661 226 660 239C658 255 668 274 675 296C689 337 679 381 650 407C626 429 594 437 564 426C547 420 532 408 522 394L508 466C506 479 494 489 480 489H218C196 489 177 481 168 464Z"/>
-    <path fill="#0F172A" opacity="0.86" d="M434 222C388 212 345 245 339 297C332 353 367 397 421 411C455 384 475 343 474 299C473 262 459 235 434 222Z"/>
-    <circle cx="537" cy="266" r="7" fill="#0F172A"/>
+    <path fill="#1E293B" opacity="0.86" d="M434 222C388 212 345 245 339 297C332 353 367 397 421 411C455 384 475 343 474 299C473 262 459 235 434 222Z"/>
+    <circle cx="537" cy="266" r="7" fill="#1E293B"/>
   </g>
-  <text x="86" y="27" font-family="Manrope, Segoe UI, Arial, sans-serif" font-size="22" font-weight="800" letter-spacing="-0.02em" fill="#F8FAFC">Slone<tspan fill="#F59E0B">Studio</tspan></text>
-  <text x="86" y="44" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="10.5" font-weight="500" fill="#CBD5E1">AI-сотрудники для бизнеса</text>
+  <text x="78" y="29" font-family="Manrope, Segoe UI, Arial, sans-serif" font-size="23" font-weight="800" letter-spacing="-0.02em" fill="#18181B">SloneStudio</text>
+  <text x="78" y="46" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="10.5" font-weight="500" fill="#18181B" fill-opacity="0.6">AI-сотрудники для бизнеса</text>
 </svg>
