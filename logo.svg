@@ -1,13 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 64" width="360" height="64">
-  <!-- Знак: узел автоматизации - три связанные точки с янтарным импульсом -->
-  <g transform="translate(6,8)">
-    <rect x="0" y="0" width="48" height="48" rx="12" fill="#0F172A"/>
-    <path d="M14 32 L24 16 L34 32" fill="none" stroke="#FAFAF9" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-    <circle cx="14" cy="32" r="3.5" fill="#FAFAF9"/>
-    <circle cx="34" cy="32" r="3.5" fill="#FAFAF9"/>
-    <circle cx="24" cy="16" r="4.5" fill="#D97706"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 64" width="280" height="64" role="img" aria-label="SloneStudio">
+  <g transform="translate(-18 -16) scale(.13)">
+    <path fill="#F59E0B" d="M168 464C150 410 153 337 181 281C213 217 275 184 345 185C395 186 437 201 470 224C485 202 510 190 537 194C568 198 590 221 597 249C606 277 599 302 584 325C577 337 574 350 579 363C586 378 602 380 615 366C630 350 632 327 625 306C617 281 611 257 616 232C619 206 635 186 656 178C674 171 690 178 694 190C698 202 691 213 680 216C669 218 661 226 660 239C658 255 668 274 675 296C689 337 679 381 650 407C626 429 594 437 564 426C547 420 532 408 522 394L508 466C506 479 494 489 480 489H218C196 489 177 481 168 464Z"/>
+    <path fill="#0F172A" opacity="0.86" d="M434 222C388 212 345 245 339 297C332 353 367 397 421 411C455 384 475 343 474 299C473 262 459 235 434 222Z"/>
+    <circle cx="537" cy="266" r="7" fill="#0F172A"/>
   </g>
-  <!-- Название -->
-  <text x="66" y="30" font-family="Manrope, system-ui, sans-serif" font-weight="800" font-size="20" fill="#0F172A" letter-spacing="-0.4">AI-автоматизация</text>
-  <text x="66" y="48" font-family="Inter, system-ui, sans-serif" font-weight="500" font-size="11" fill="#0F172A" opacity="0.6">умные процессы для бизнеса</text>
+  <text x="86" y="27" font-family="Manrope, Segoe UI, Arial, sans-serif" font-size="22" font-weight="800" letter-spacing="-0.02em" fill="#F8FAFC">Slone<tspan fill="#F59E0B">Studio</tspan></text>
+  <text x="86" y="44" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="10.5" font-weight="500" fill="#CBD5E1">AI-сотрудники для бизнеса</text>
 </svg>
